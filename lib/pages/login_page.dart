@@ -14,6 +14,13 @@ class LoginPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final authProvider = Provider.of<AuthProvider>(context);
 
+    // Escucha cambios en el estado de autenticación
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (authProvider.isAuthenticated) {
+        Navigator.pushReplacementNamed(context, 'home');
+      }
+    });
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -13,6 +13,10 @@ class AuthProvider extends ChangeNotifier {
     if (_enteredPin.length < 6) {
       _enteredPin.add(digit);
       notifyListeners();
+
+      if (_enteredPin.length == 6) {
+        _authenticateWithDevice();
+      }
     }
   }
 
@@ -23,25 +27,16 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> authenticateWithBiometrics() async {
+  Future<void> _authenticateWithDevice() async {
     try {
       _isAuthenticated = await _localAuth.authenticate(
         localizedReason: 'Please authenticate to access the app',
         options: const AuthenticationOptions(
-          biometricOnly: true,
+          useErrorDialogs: true,
+          stickyAuth: true,
         ),
       );
     } catch (e) {
-      _isAuthenticated = false;
-    }
-    notifyListeners();
-    return _isAuthenticated;
-  }
-
-  void authenticateWithPin(String pin) {
-    if (_enteredPin.join() == pin) {
-      _isAuthenticated = true;
-    } else {
       _isAuthenticated = false;
     }
     notifyListeners();
