@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class ScanButtonWidget extends StatelessWidget {
   const ScanButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+   
     return InkWell(
       onTap: () async {
         showModalBottomSheet(
@@ -23,8 +24,8 @@ class ScanButtonWidget extends StatelessWidget {
               width: size.width,
               height: size.height * 0.3,
               child: GestureDetector(
-                onTap: ()  {
-                  
+                onTap: () {
+                 
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

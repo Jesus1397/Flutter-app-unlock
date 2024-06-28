@@ -3,14 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/widgets/delete_button_widget.dart';
 import 'package:myapp/widgets/num_button_widget.dart';
 import 'package:myapp/widgets/scan_button_widget.dart';
-
+import 'package:provider/provider.dart';
+import 'package:myapp/providers/auth_provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       body: Column(
@@ -38,29 +40,26 @@ class LoginPage extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             width: double.infinity,
             height: size.height * 0.05,
-            child: const Row(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DotWidget(),
-                SizedBox(width: 20),
-                DotWidget(),
-                SizedBox(width: 20),
-                DotWidget(),
-                SizedBox(width: 20),
-                DotWidget(),
-                SizedBox(width: 20),
-                DotWidget(),
-                SizedBox(width: 20),
-                DotWidget(),
-              ],
+              children: List.generate(6, (index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: DotWidget(
+                    digit: authProvider.enteredPin.length > index
+                        ? authProvider.enteredPin[index]
+                        : null,
+                  ),
+                );
+              }),
             ),
           ),
           Container(
             width: double.infinity,
             height: size.height * 0.65,
             alignment: Alignment.center,
-            child:  const Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -68,45 +67,27 @@ class LoginPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    NumButtonWidget(
-                      num: '1',
-                    ),
-                    NumButtonWidget(
-                      num: '2',
-                    ),
-                    NumButtonWidget(
-                      num: '3',
-                    ),
+                    NumButtonWidget(num: '1'),
+                    NumButtonWidget(num: '2'),
+                    NumButtonWidget(num: '3'),
                   ],
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    NumButtonWidget(
-                      num: '4',
-                    ),
-                    NumButtonWidget(
-                      num: '5',
-                    ),
-                    NumButtonWidget(
-                      num: '6',
-                    ),
+                    NumButtonWidget(num: '4'),
+                    NumButtonWidget(num: '5'),
+                    NumButtonWidget(num: '6'),
                   ],
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    NumButtonWidget(
-                      num: '7',
-                    ),
-                    NumButtonWidget(
-                      num: '8',
-                    ),
-                    NumButtonWidget(
-                      num: '9',
-                    ),
+                    NumButtonWidget(num: '7'),
+                    NumButtonWidget(num: '8'),
+                    NumButtonWidget(num: '9'),
                   ],
                 ),
                 Row(
@@ -114,28 +95,27 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ScanButtonWidget(),
-                    NumButtonWidget(
-                      num: '0',
-                    ),
+                    NumButtonWidget(num: '0'),
                     DeleteButtonWidget(),
                   ],
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 }
 
-
 class DotWidget extends StatelessWidget {
-  const DotWidget({super.key});
+  final String? digit;
+
+  const DotWidget({this.digit, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Stack(
+    return Stack(
       alignment: Alignment.center,
       children: [
         Container(
@@ -146,14 +126,23 @@ class DotWidget extends StatelessWidget {
             color: Colors.grey[300],
           ),
         ),
-        Container(
-          width: 10,
-          height: 10,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: const Color(0xff3699CA),
+        if (digit != null)
+          Text(
+            digit!,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Color(0xff3699CA),
+            ),
           ),
-        ),
+        if (digit == null)
+          Container(
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: const Color(0xff3699CA),
+            ),
+          ),
       ],
     );
   }

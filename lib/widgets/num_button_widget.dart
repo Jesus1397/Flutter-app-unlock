@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class NumButtonWidget extends StatelessWidget {
   final String num;
@@ -11,6 +13,8 @@ class NumButtonWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        authProvider.addPinDigit(num);
       },
       borderRadius: BorderRadius.circular(100),
       child: Container(
