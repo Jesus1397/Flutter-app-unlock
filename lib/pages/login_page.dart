@@ -14,8 +14,9 @@ class LoginPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final authProvider = Provider.of<AuthProvider>(context);
 
-    // Escucha cambios en el estado de autenticación
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      print('hola');
+
       if (authProvider.isAuthenticated) {
         Navigator.pushReplacementNamed(context, 'home');
       }
@@ -50,7 +51,7 @@ class LoginPage extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(6, (index) {
+              children: List.generate(4, (index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: DotWidget(

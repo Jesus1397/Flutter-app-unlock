@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:myapp/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class ScanButtonWidget extends StatelessWidget {
   const ScanButtonWidget({super.key});
@@ -8,7 +9,7 @@ class ScanButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-   
+
     return InkWell(
       onTap: () async {
         showModalBottomSheet(
@@ -24,8 +25,17 @@ class ScanButtonWidget extends StatelessWidget {
               width: size.width,
               height: size.height * 0.3,
               child: GestureDetector(
-                onTap: () {
-                 
+                onTap: () async {
+                  AuthProvider authProvider =
+                      Provider.of<AuthProvider>(context, listen: false);
+                  await authProvider.authenticateWithFingerprint();
+                  if (authProvider.isAuthenticated) {
+                    Navigator.pushNamed(context, 'home');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Authentication failed')),
+                    );
+                  }
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
