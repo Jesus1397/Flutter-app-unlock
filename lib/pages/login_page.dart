@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/widgets/delete_button_widget.dart';
+import 'package:myapp/widgets/dot_widget.dart';
 import 'package:myapp/widgets/num_button_widget.dart';
 import 'package:myapp/widgets/scan_button_widget.dart';
 import 'package:provider/provider.dart';
@@ -112,46 +113,6 @@ class LoginPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class DotWidget extends StatelessWidget {
-  final String? digit;
-
-  const DotWidget({this.digit, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: 16,
-          height: 16,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.grey[300],
-          ),
-        ),
-        if (digit != null)
-          Text(
-            digit!,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xff3699CA),
-            ),
-          ),
-        if (digit == null)
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: const Color(0xff3699CA),
-            ),
-          ),
-      ],
     );
   }
 }
