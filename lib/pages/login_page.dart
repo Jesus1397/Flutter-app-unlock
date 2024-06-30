@@ -16,8 +16,6 @@ class LoginPage extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      print('hola');
-
       if (authProvider.isAuthenticated) {
         Navigator.pushReplacementNamed(context, 'home');
       }

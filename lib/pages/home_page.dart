@@ -22,8 +22,13 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            InkWell(
-              onTap: () {
+            MaterialButton(
+              color: const Color(0xff3699CA),
+              textColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              onPressed: () {
                 authProvider.logout();
                 Navigator.pushReplacementNamed(context, 'login');
               },

@@ -30,7 +30,7 @@ class ScanButtonWidget extends StatelessWidget {
                       Provider.of<AuthProvider>(context, listen: false);
                   await authProvider.authenticateWithFingerprint();
                   if (authProvider.isAuthenticated) {
-                    Navigator.pushNamed(context, 'home');
+                    Navigator.pushReplacementNamed(context, 'home');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Authentication failed')),
